@@ -46,18 +46,20 @@ writer.close()
 
 #--------------------------------------------------------------------#
 # Send Excel Sheet by email                                          #
+# On your PC, please do                                              #
+# export USERNAME=ourteamemal                                        #
+# export PASSWORD=googleapppassword                                  #
 #--------------------------------------------------------------------#
 USERNAME = os.environ.get('USERNAME')
 PASSWORD = os.environ.get('PASSWORD')
 
 sender = USERNAME
 destination = 'hello@daas.ng'
-# destination = 'bayodesegun@gmail.com'
+bcc = 'bayodesegun@gmail.com'
 
 msg = MIMEMultipart()
 msg['From'] = sender
 msg['To'] = destination
-msg['Bcc'] = 'bayode.aderinola@gmail.com'
 msg['Subject'] = "DaaS.ng Team Docker Python Assignment"
 body = "Please find the file attached."
 
@@ -79,7 +81,7 @@ s.login(USERNAME, PASSWORD)
 
 # send the mail
 message = msg.as_string()
-s.sendmail(sender, destination, message)
+s.sendmail(sender, [destination, sender, bcc], message)
 
 # terminate the session
 s.quit()
